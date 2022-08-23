@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!------------bootstrap--------------->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!------------css--------------->
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <!------------google font--------------->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aboreto&display=swap" rel="stylesheet">
+    <!------------vue--------------->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+
+
+    <title>Premier projet VueJS</title>
+
+</head>
+<body>
+
+
+<div id="container-ToDoLIst" class="container">
+
+    <div id="liste-taches" class="row text-white">
+
+        <div id="votre-liste" class="text-center mt-5 p-3">
+            <p>{{message}}</p>
+            <p>{{message2}}</p>
+        </div>
+
+        <div class="p-4">
+            <form class="list-group col col-sm-12 mb-5">
+                <span>
+                    <input id="input-ajouter-tache" v-model="tacheInput" type="text" placeholder="Ajouter une tâche.........">
+                    <button id="ajouter-tache" @click.prevent="ajouterTache" type="submit" class="btn btn-outline-primary">►</button>
+                </span>
+
+                <div>
+                    <button id="reset-taches" @click.prevent="resetTaches" type="submit" class="btn btn-outline-primary mt-1">RESET</button>
+                </div>
+            </form>
+
+            <ul class="col-lg-4 col-sm-12 list-group">
+                <!--Pour afficher notre tableau : on utilise l’attribut (la directive) v-for dans HTML similaire a une boucle for in avec java script-->
+                <!--On ajoute a notre boucle un index + une clé unique :key = v-bind:key-->
+                <li id="li-taches" class="list-group-item" v-bind:class="{ active: tache.active}" v-for="(tache, index) in taches" :key="tache.item">
+                <span>
+                    <button id="btn-supp-tache" @click.prevent="supprimerUneTache(tache)" type="submit" class="btn btn-sm btn-outline-danger me-2">X</button>
+                    <button id="btn-valider-tache" @click.prevent="validerTache(index)"  type="submit" class="btn btn-sm btn-outline-success me-2">✔</button>
+                    {{tache.item}}
+                </span>
+                </li>
+                <li id="li-tache-ajoutee">{{tacheInput}}</li>
+            </ul>
+
+        </div>
+
+        <!--row-->
+    </div>
+    <!--container-->
+</div>
+
+
+
+<script>
+    //Bonus, date actuelle pour message
+    let date = new Date();
+
+    //let app = new Vue({}) stock l’instance du framework et prend des directives sous forme d’objet
+    let app = new Vue({
+        //La directive el : fait le liens entre vuejs et le crochetage a un id HTML
+        el: "#liste-taches",
+        //Créer un hook data : qui retourne un objet (data est une fonction 2-ways binding = éléments liés dans les 2 sens)
+        //ici data est un HOOK
+        data:{
+            message: "Votre liste de tâche:",
+            message2: "Aujourd'hui" + date.toLocaleString(),
+            tacheInput: "",
+            //tâche non complétée par défaut
+            completed: false,
+
+            //taches est un tableau d'objets avec propriété clés/valeurs crée dans le hook data
+            taches:[
+                {
+                    id: 1,
+                    item: "Apprendre HTML/CSS"
+                },
+                {
+                    id: 2,
+                    item: "Apprendre PHP"
+                },
+                {
+                    id: 3,
+                    item: "Apprendre SYMFONY"
+                },
+                {
+                    id: 4,
+                    item: "Apprendre JAVASCRIPT"
+                },
+                {
+                    id: 5,
+                    item: "Apprendre VUEJS"
+                }
+            ]
+
+        },
+        //Ajouter le hook methods a l’instance de vue (en dehors de data) pour créer des
+        //fonctions utilisable avec HTML âpres le 1er rendu (mounted)
+        methods:{
+            //reset toutes les tâches
+            resetTaches() {
+                //alert("ok click");
+                this.taches = []
+            },
+            //supprimer une seule tâche
+            supprimerUneTache(tache){
+                //alert("ok click");
+                this.taches = this.taches.filter(t => t !== tache);
+            },
+            //ajouter une tâche
+            ajouterTache(){
+                if (this.tacheInput === ""){
+                    alert("Erreur! Le champ est vide!")
+                }else{
+                    //alert("ok click");
+                    this.taches.push({
+                        'item': this.tacheInput
+                    });
+                    this.tacheInput = "";
+                }
+            },
+            //Valider une tâche
+            validerTache(index){
+                //alert("ok click");
+                let item = this.taches[index];
+                item.active = !item.active;
+                this.$set(this.taches, index, item);
+            }
+        }
+
+    })
+</script>
+
+</body>
+</html>

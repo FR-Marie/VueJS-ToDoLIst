@@ -1,0 +1,73 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: url("../img/pexels-alexander-ant-4585185.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  hight: 100vh;
+}
+
+#votre-liste {
+  background-image: url("../img/fond-sections.png");
+}
+
+#liste-taches {
+  font-size: 30px;
+  font-family: "Aboreto", cursive;
+  font-weight: bold;
+}
+
+#li-taches, #li-tache-ajoutee {
+  list-style-type: none;
+  font-size: 20px;
+  color: white;
+  background-color: #242424;
+  border: 1px solid darkred;
+}
+
+#btn-supp-tache {
+  background-color: darkred;
+}
+
+#btn-supp-tache:hover {
+  transform: scale(1.1);
+  color: red;
+  font-weight: bold;
+}
+
+#ajouter-tache {
+  background-color: #1902aa;
+}
+
+#ajouter-tache:hover {
+  transform: scale(1.1);
+  color: #23ad1f;
+  font-weight: bold;
+}
+
+#input-ajouter-tache::placeholder {
+  font-size: 40px;
+  font-family: "Adobe Arabic";
+  background: -webkit-linear-gradient(yellow, blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#reset-taches {
+  font-size: 20px;
+  background-color: gold;
+  font-family: "Adobe Arabic";
+}
+
+#reset-taches:hover {
+  color: blue;
+  font-weight: bold;
+}
+
+.active {
+  text-decoration: line-through solid green;
+  text-decoration-thickness: 5px;
+}
+
+/*# sourceMappingURL=style.css.map */
